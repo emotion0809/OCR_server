@@ -23,7 +23,7 @@ def running_TCP_server():
         print ('Connected by ', addr)
         while not gb.stop_event.is_set():
             try:
-                if gb.send_messsage_to_kvm:
+                if gb.send_message_to_kvm:
                     message = f"auto{OCR_id}"
                     client.send((message).encode('utf-8'))
                     time.sleep(30)

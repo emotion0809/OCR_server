@@ -16,12 +16,10 @@ def OCR(rectangle):
 def loop_pattern_recognition():
     """持續執行圖片辨識的背景執行緒"""
     try:
-        auto_red_ratio = calculate_color_pixel_ratio(gb.auto_rectangle,"red")
-        B_manul_white_ratio = calculate_color_pixel_ratio(gb.B_manual_rectangle,"white")
         Standard_Setting = OCR(gb.Standard_Setting_rectangle)
         #條件符合後向KVM程式，傳送執行命令
-        #print(f"紅色比例:{auto_red_ratio},白色比例:{B_manul_white_ratio},是否偵測到Standard_Setting字串:{Standard_Setting}")
-        gb.send_messsage_to_kvm = auto_red_ratio > 0.85 and B_manul_white_ratio > 0.05 and "Standard Setting" in Standard_Setting
+        gb.send_message_to_kvm = "The data have changed. Do you register the data?" in Standard_Setting
+        print(gb.send_message_to_kvm)
     except Exception as e:
         print(f"圖片辨識失敗:{e}")
     gb.UI.window.after(100,loop_pattern_recognition)
