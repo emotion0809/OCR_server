@@ -60,33 +60,15 @@ class UI:
         self.check_screenshot_loop.grid(row=1,column=0,padx=20,pady=3)
 
         #新增標註按鈕
-        self.button_label_Standard_Setting = tk.Button(
-            self.fourth_frame,text="Standard Setting",
+        self.button_label_register_hint = tk.Button(
+            self.fourth_frame,text="Register hint",
             font=("Arial",8,"bold"),
             width=15,
             bg = "#F3F3FA",
-            command=lambda: self.press_button_label("Standard_Setting")
+            command=lambda: self.press_button_label("Register hint")
         )
     
-        self.button_label_auto = tk.Button(
-            self.fourth_frame,text="Auto",
-            font=("Arial",8,"bold"),
-            width=10,
-            bg = "#F3F3FA",
-            command=lambda: self.press_button_label("Auto")
-        )
-    
-        self.button_label_B_manual = tk.Button(
-            self.fourth_frame,text="B_manual",
-            font=("Arial",8,"bold"),
-            width=10,
-            bg = "#F3F3FA",
-            command=lambda: self.press_button_label("B_manual")
-        )
-    
-        self.button_label_Standard_Setting.grid(row=0,column=0,padx=5,pady=15,ipady=3)
-        self.button_label_auto.grid(row=0,column=1,padx=5,pady=15,ipady=3)
-        self.button_label_B_manual.grid(row=0,column=2,padx=5,pady=15,ipady=3)
+        self.button_label_register_hint.grid(row=0,column=0,padx=5,pady=15,ipady=3)
     
         #第三框架
         self.third_frame = tk.Frame(self.main_frame)
@@ -128,8 +110,8 @@ class UI:
         """準備或取消標記作業作業"""
         is_labeling = rectangle_data.ready_to_label
         # 取消所有標註
-        gb.Standard_Setting_rectangle.ready_to_label = gb.auto_rectangle.ready_to_label = gb.B_manual_rectangle.ready_to_label = False
-        for buttons in [self.button_label_Standard_Setting, self.button_label_auto, self.button_label_B_manual]:
+        gb.register_hint_rectangle.ready_to_label = False
+        for buttons in [self.button_label_register_hint]:
             buttons["bg"] = "#F3F3FA"
 
         if not is_labeling:
@@ -169,9 +151,7 @@ class UI:
 
     def press_button_label(self,rectangle_type):
         rectangle_map = {
-            "Standard_Setting": (gb.Standard_Setting_rectangle, self.button_label_Standard_Setting),
-            "Auto": (gb.auto_rectangle, self.button_label_auto),
-            "B_manual": (gb.B_manual_rectangle, self.button_label_B_manual),
+            "Register hint": (gb.register_hint_rectangle, self.button_label_register_hint),
         }
         rectangle, button = rectangle_map.get(rectangle_type, (None, None))
         if rectangle:
@@ -184,27 +164,17 @@ class UI:
 
     def on_mouse_press(self, event):
         """滑鼠按下事件處理"""
-        cu.start_rectangle(event,gb.auto_rectangle) #標註Auto
-        cu.start_rectangle(event,gb.Standard_Setting_rectangle) #標註Standard Setting
-        cu.start_rectangle(event,gb.B_manual_rectangle) #標註B manual
+        cu.start_rectangle(event,gb.register_hint_rectangle) #標註Standard Setting
 
     def on_mouse_drag(self, event):
         """滑鼠拖曳事件處理"""
-        cu.update_rectangle(event,gb.auto_rectangle) #標註Auto
-        cu.update_rectangle(event,gb.Standard_Setting_rectangle) #標註Standard Setting
-        cu.update_rectangle(event,gb.B_manual_rectangle) #標註B manual
+        cu.update_rectangle(event,gb.register_hint_rectangle) #標註Standard Setting
 
     def on_mouse_release(self, event):
         """滑鼠釋放事件處理"""
-        #完成標註Auto
-        if cu.end_rectangle(gb.auto_rectangle):
-            self.after_finish_label("Auto",gb.auto_rectangle,self.button_label_auto)
         #完成標註Standard_Setting
-        if cu.end_rectangle(gb.Standard_Setting_rectangle):
-            self.after_finish_label("Standard_Setting",gb.Standard_Setting_rectangle,self.button_label_Standard_Setting)
-        #完成標註B_manual
-        if cu.end_rectangle(gb.B_manual_rectangle):
-            self.after_finish_label("B_manual",gb.B_manual_rectangle,self.button_label_B_manual)
+        if cu.end_rectangle(gb.register_hint_rectangle):
+            self.after_finish_label("Register_hint",gb.register_hint_rectangle,self.button_label_register_hint)
 
     def open_application(self):
     # 啟動循環截圖執行緒
