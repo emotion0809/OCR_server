@@ -19,7 +19,7 @@ def loop_pattern_recognition():
         Standard_Setting = OCR(gb.register_hint_rectangle)
         #條件符合後向KVM程式，傳送執行命令
         gb.send_message_to_kvm = "The data have changed. Do you register the data?" in Standard_Setting
-        print(gb.send_message_to_kvm)
+        gb.UI.hide_label_condition_achieve(gb.send_message_to_kvm)
     except Exception as e:
         print(f"圖片辨識失敗:{e}")
     gb.UI.window.after(100,loop_pattern_recognition)

@@ -28,7 +28,7 @@ class UI:
         self.second_frame.pack(fill="both",side="top",expand=1)
 
         #第三框架
-        self.third_frame = tk.Frame(self.second_frame,bg="#FFFFFF")
+        self.third_frame = tk.Frame(self.second_frame,bg="#FFFFFF",pady=15)
 
         #第四框架
         self.fourth_frame = tk.LabelFrame(self.second_frame, text='標註',bg="#FFFFFF")
@@ -54,10 +54,18 @@ class UI:
             font=("Arial",8,"bold"),
             variable=self.start_screenshot_loop,
             command=self.click_screenshot_loop)
+        
+        #新增
+        self.label_condition_achieve = tk.Label(self.third_frame,
+            text='ON',
+            bg="#FFFFFF",
+            font=('Arial',16,'bold'),
+            fg='green')
     
-        #放置第三三框架的物件
-        self.button_screenshot.grid(row=0,column=0,padx=20,pady=5,ipady=3)
-        self.check_screenshot_loop.grid(row=1,column=0,padx=20,pady=3)
+        #放置第三框架的物件
+        self.button_screenshot.grid(row=0,column=0,padx=(20,0),pady=10,ipady=3)
+        self.check_screenshot_loop.grid(row=0,column=1,padx=10,pady=10)
+        
 
         #新增標註按鈕
         self.button_label_register_hint = tk.Button(
@@ -76,7 +84,6 @@ class UI:
 
         #創建畫布
         self.screenshot_canvas = tk.Canvas(self.third_frame)
-
         
         #新增滾動條
         self.xscollbar = tk.Scrollbar(self.third_frame, orient="horizontal",command=self.screenshot_canvas.xview)
@@ -105,6 +112,13 @@ class UI:
         self.window.state("iconic")
         self.window.after(100,self.open_application)
         self.window.mainloop()
+
+    def hide_label_condition_achieve(self,is_condition_achieve):
+        if(is_condition_achieve):
+            self.label_condition_achieve.grid(row=0,column=2,padx=10,pady=10)
+        else:
+            self.label_condition_achieve.grid_forget();
+    
 
     def toggle_labeling(self,rectangle_data,button):
         """準備或取消標記作業作業"""
