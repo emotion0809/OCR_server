@@ -18,7 +18,7 @@ def screenshot_loop():
             return 0
         screenshot()
         gb.UI.window.after(100,screenshot_loop)
-    except Exception :
+    except Exception as e:
         print(f"截圖失敗{e}")
 
 def start_rectangle(event,rectangle_data):
@@ -64,23 +64,11 @@ def repaint_rectangle(rectangle_data):
 def paint_save_rectangle():
     """在程式從新啟動時，繪製新的方框"""
     try:
-        gb.auto_rectangle.set_coordinate(
-            gb.save_data["Auto"]["left"],
-            gb.save_data["Auto"]["top"],
-            gb.save_data["Auto"]["right"],
-            gb.save_data["Auto"]["bottom"])
-        gb.B_manual_rectangle.set_coordinate(
-            gb.save_data["B_manual"]["left"],
-            gb.save_data["B_manual"]["top"],
-            gb.save_data["B_manual"]["right"],
-            gb.save_data["B_manual"]["bottom"])
-        gb.Standard_Setting_rectangle.set_coordinate(
-            gb.save_data["Standard_Setting"]["left"],
-            gb.save_data["Standard_Setting"]["top"],
-            gb.save_data["Standard_Setting"]["right"],
-            gb.save_data["Standard_Setting"]["bottom"])
-        repaint_rectangle(gb.auto_rectangle)
-        repaint_rectangle(gb.B_manual_rectangle)
-        repaint_rectangle(gb.Standard_Setting_rectangle)
+        gb.register_hint_rectangle.set_coordinate(
+            gb.save_data["Register_hint"]["left"],
+            gb.save_data["Register_hint"]["top"],
+            gb.save_data["Register_hint"]["right"],
+            gb.save_data["Register_hint"]["bottom"])
+        repaint_rectangle(gb.register_hint_rectangle)
     except Exception as e:
         print(f"重新繪製方框失敗:{e}")

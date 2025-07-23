@@ -8,6 +8,7 @@ class Config:
         self.auto_rectangle = rectangle_data("green")
         self.B_manual_rectangle = rectangle_data("purple")
         self.Standard_Setting_rectangle = rectangle_data("red")
+        self.register_hint_rectangle = rectangle_data("red")
         self.UI = None
         self.screenshot_image = None
         self.send_message_to_kvm = False

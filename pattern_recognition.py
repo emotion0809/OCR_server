@@ -16,7 +16,7 @@ def OCR(rectangle):
 def loop_pattern_recognition():
     """持續執行圖片辨識的背景執行緒"""
     try:
-        Standard_Setting = OCR(gb.Standard_Setting_rectangle)
+        Standard_Setting = OCR(gb.register_hint_rectangle)
         #條件符合後向KVM程式，傳送執行命令
         gb.send_message_to_kvm = "The data have changed. Do you register the data?" in Standard_Setting
         print(gb.send_message_to_kvm)
